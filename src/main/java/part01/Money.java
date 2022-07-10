@@ -1,6 +1,6 @@
 package part01;
 
-public class Money {
+public class Money implements Expression{
 
     protected int amount;
     protected String currency;
@@ -37,5 +37,9 @@ public class Money {
 
     public String toString(){
         return this.amount + " " + this.currency;
+    }
+
+    public Expression plus(Money added) {
+        return new Money(this.amount + added.amount, currency);
     }
 }
