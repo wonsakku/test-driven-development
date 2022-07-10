@@ -27,7 +27,7 @@ public class Money implements Expression{
                 currency().equals(money.currency());
     }
 
-    Money times(int multiplier){
+    Expression times(int multiplier){
         return new Money(this.amount * multiplier, this.currency);
     }
 
@@ -39,7 +39,7 @@ public class Money implements Expression{
         return this.amount + " " + this.currency;
     }
 
-    public Expression plus(Money added) {
+    public Expression plus(Expression added) {
         return new Sum(this, added);
     }
 

@@ -4,6 +4,7 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatException;
 
 public class MoneyTest {
 
@@ -82,6 +83,16 @@ public class MoneyTest {
     @Test
     void testIdentityRate(){
         assertThat(1).isEqualTo(new Bank().rate("USD", "USD"));
+    }
+
+    @Test
+    void testMixedAddition(){
+        Expression fiveBucks = Money.dollar(5);
+        Expression tenFrancs = Money.franc(10);
+        Bank bank = new Bank();
+        bank.addRate("CHF", "USD", 2);
+        Money result = bank.reduce(fiveBucks.plus(tenFrancs), "USD");
+        assertThat(Money.dollar(10)).isEqualTo(result);
     }
 
 }
